@@ -1,10 +1,13 @@
-import React from 'react'
-import ComingSoonContainer from '../../shared/containers/ComingSoonContainer'
+import React from 'react';
+import ScreenContainer from '../../shared/containers/ScreenContainer';
+import ScanContainer from './containers/Scan';
 
 const ActivityScreen = () => {
   return (
-    <ComingSoonContainer />
-  )
-}
+    <ScreenContainer scrollable>
+      <ScanContainer />
+    </ScreenContainer>
+  );
+};
 
-export default ActivityScreen
+export default ActivityScreen;

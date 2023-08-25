@@ -7,10 +7,14 @@ import DateComponent from '../components/Date';
 import AddressComponent from '../components/Address';
 import DoctorComponent from '../components/Doctor';
 import TimelineComponent from '../components/Timeline';
+import {HEIGHT_ANALYTICS_COMPONENT} from '../constants';
 
 const Modal = () => {
   return (
-    <BottomSheetModalContainer>
+    <BottomSheetModalContainer
+      startFrom={HEIGHT_ANALYTICS_COMPONENT}
+      initEnable
+      enablePanDownToClose={false}>
       <BottomSheetView style={{marginTop: 16}}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
           <View>

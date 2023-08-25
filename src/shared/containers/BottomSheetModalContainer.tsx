@@ -1,41 +1,84 @@
-import React, {useState, useLayoutEffect, useMemo, useRef, FC, ReactNode, useCallback} from 'react';
-import {BottomSheetModal} from '@gorhom/bottom-sheet';
-import {HEIGHT_ANALYTICS_COMPONENT} from '../../screens/Home/constants';
+import React, {
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useCallback,
+  forwardRef,
+  useImperativeHandle,
+  useState,
+} from 'react';
+import {BottomSheetModal, BottomSheetModalProps} from '@gorhom/bottom-sheet';
 
-interface BottomSheetScrollProps {
-  children: ReactNode;
+interface CustomBottomSheetModalProps extends Omit<BottomSheetModalProps, 'snapPoints'> {
+  startFrom: string | number;
+  children: React.JSX.Element;
+  initEnable: boolean;
 }
 
-const BottomSheetModalContainer: FC<BottomSheetScrollProps> = ({children}) => {
-  const bottomSheetRef = useRef<BottomSheetModal>(null);
-  console.log(HEIGHT_ANALYTICS_COMPONENT);
-  const snapPoints = useMemo(() => [HEIGHT_ANALYTICS_COMPONENT, '100%'], []);
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log('handleSheetChanges', index);
-  }, []);
+export interface CustomBottomSheetModalRef {
+  onOpen: () => void;
+}
 
-  useLayoutEffect(() => {
-    requestAnimationFrame(() => bottomSheetRef.current?.present());
-  }, []);
+const BottomSheetModalContainer = forwardRef<
+  CustomBottomSheetModalRef,
+  CustomBottomSheetModalProps
+>(
+  (
+    {
+      startFrom,
+      children,
+      index = 1,
+      enableDismissOnClose = false,
+      enablePanDownToClose = false,
+      ...props
+    },
+    ref,
+  ) => {
+    const bottomSheetRef = useRef<BottomSheetModal>(null);
+    const snapPoints = useMemo(() => [startFrom, '100%'], []);
+    const [backgroundStyle, setBackgroundStyle] = useState({
+      borderTopRightRadius: 40,
+      borderTopLeftRadius: 40,
+    });
+    const handleSheetChanges = useCallback((index: number) => {
+      console.log('handleSheetChanges', index);
+      if (snapPoints.length - 1) {
+        setBackgroundStyle(old => ({
+          borderTopRightRadius: 20,
+          borderTopLeftRadius: 20,
+        }));
+      }
+    }, []);
 
-  return (
-    <BottomSheetModal
-      ref={bottomSheetRef}
-      index={0}
-      snapPoints={snapPoints}
-      enableDismissOnClose={false}
-      enablePanDownToClose={false}
-      style={{
-        paddingHorizontal: 10,
-      }}
-      backgroundStyle={{
-        borderTopRightRadius: 40,
-        borderTopLeftRadius: 40,
-      }}
-      onChange={handleSheetChanges}>
-      {children}
-    </BottomSheetModal>
-  );
-};
+    useLayoutEffect(() => {
+      if (props?.initEnable) {
+        requestAnimationFrame(() => bottomSheetRef.current?.present());
+      }
+    }, []);
+
+    const onOpen = () => {
+      requestAnimationFrame(() => bottomSheetRef.current?.present());
+    };
+
+    useImperativeHandle(ref, () => ({
+      onOpen,
+    }));
+
+    return (
+      <BottomSheetModal
+        ref={bottomSheetRef}
+        snapPoints={snapPoints}
+        index={index}
+        style={Object.assign({paddingHorizontal: 10}, props.style)}
+        enableDismissOnClose={enableDismissOnClose}
+        enablePanDownToClose={enablePanDownToClose}
+        backgroundStyle={Object.assign(backgroundStyle, props.backgroundStyle)}
+        onChange={handleSheetChanges}
+        {...props}>
+        {children}
+      </BottomSheetModal>
+    );
+  },
+);
 
 export default BottomSheetModalContainer;

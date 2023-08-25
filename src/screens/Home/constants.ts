@@ -1,5 +1,5 @@
-import {Dimensions} from 'react-native';
-export const {width: windowWidth, height: windowHeight} = Dimensions.get('window');
+import {windowHeight, windowWidth} from '../../constants/sizes';
+
 export const SIZE_PROGRESSBAR = {width: windowWidth * 0.5, height: 8};
 export const SIZE_PROGRESSBAR_H = 8;
 export const SIZE_CIRCULARPROGRESSBAR = windowWidth * 0.5;

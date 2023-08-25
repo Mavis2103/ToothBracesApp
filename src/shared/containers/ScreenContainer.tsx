@@ -1,13 +1,27 @@
 import React, {FC} from 'react';
 import {Layout, LayoutProps, ViewPager} from '@ui-kitten/components';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {ScrollView} from 'react-native';
 
-const ScreenContainer: FC<LayoutProps> = ({children, style, ...props}) => {
+interface ScreenContainerProps extends LayoutProps {
+  scrollable?: boolean;
+}
+
+const ScreenContainer: FC<ScreenContainerProps> = ({children, style, ...props}) => {
   return (
-    <ViewPager style={{flex: 1}}>
-      <Layout style={Object.assign({flex: 1}, style)} {...props}>
-        {children}
-      </Layout>
-    </ViewPager>
+    <SafeAreaView style={{flex: 1}}>
+      {props?.scrollable ? (
+        <ScrollView>
+          <Layout style={Object.assign({flex: 1, backgroundColor: '#EDF5FF'}, style)} {...props}>
+            {children}
+          </Layout>
+        </ScrollView>
+      ) : (
+        <Layout style={Object.assign({flex: 1, backgroundColor: '#EDF5FF'}, style)} {...props}>
+          {children}
+        </Layout>
+      )}
+    </SafeAreaView>
   );
 };
 
