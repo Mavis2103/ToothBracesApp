@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "262077225849",
+    "project_id": "toothbraces-25a0f",
+    "storage_bucket": "toothbraces-25a0f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262077225849:android:a7e39e1688649b75952da8",
+        "android_client_info": {
+          "package_name": "com.toothbracesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "262077225849-mtm435qabh56jbfntc3r4ku1bamcsh7g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.toothbracesapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "262077225849-iolufo641595o06abl0sbf21rbeas5jh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1rjpONoVKuH-VkeVRvxVWBO9M4mz_JBA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "262077225849-iolufo641595o06abl0sbf21rbeas5jh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

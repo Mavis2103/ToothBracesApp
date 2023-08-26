@@ -69,7 +69,8 @@ const ScanCameraContainer = () => {
           ref={bottomSheet}
           startFrom={'100%'}
           initEnable={false}
-          enablePanDownToClose>
+          enablePanDownToClose
+          enableDismissOnClose>
           <ScanModalContainer media={media} />
         </BottomSheetModalContainer>
       </BottomSheetModalProvider>

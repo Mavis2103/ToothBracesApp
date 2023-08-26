@@ -2,7 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomTabsContainer} from '../shared/containers/BottomTabsContainer';
 import HomeScreen from '../screens/Home';
-import PersonalScreen from '../screens/Personal';
+import ProfileScreen from '../screens/Profile';
 import NotificationScreen from '../screens/Notification';
 import SettingScreen from '../screens/Setting';
 import ActivityScreen from '../screens/Activity';
@@ -10,7 +10,7 @@ import ActivityScreen from '../screens/Activity';
 const {Navigator, Screen} = createBottomTabNavigator<HomeStackParamList>();
 
 export type HomeStackParamList = {
-  PersonalScreen: undefined;
+  ProfileScreen: undefined;
   ActivityScreen: undefined;
   HomeScreen: undefined;
   NotificationScreen: undefined;
@@ -23,7 +23,7 @@ const BottomTabsRoute = () => {
       initialRouteName="HomeScreen"
       tabBar={props => <BottomTabsContainer {...props} />}
       screenOptions={{headerShown: false}}>
-      <Screen name="PersonalScreen" component={PersonalScreen} />
+      <Screen name="ProfileScreen" component={ProfileScreen} />
       <Screen name="ActivityScreen" component={ActivityScreen} />
       <Screen name="HomeScreen" component={HomeScreen} />
       <Screen name="NotificationScreen" component={NotificationScreen} />

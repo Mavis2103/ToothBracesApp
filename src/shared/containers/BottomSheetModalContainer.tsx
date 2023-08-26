@@ -27,7 +27,7 @@ const BottomSheetModalContainer = forwardRef<
     {
       startFrom,
       children,
-      index = 1,
+      index = 0,
       enableDismissOnClose = false,
       enablePanDownToClose = false,
       ...props
@@ -41,9 +41,9 @@ const BottomSheetModalContainer = forwardRef<
       borderTopLeftRadius: 40,
     });
     const handleSheetChanges = useCallback((index: number) => {
-      console.log('handleSheetChanges', index);
       if (snapPoints.length - 1) {
         setBackgroundStyle(old => ({
+          ...old,
           borderTopRightRadius: 20,
           borderTopLeftRadius: 20,
         }));

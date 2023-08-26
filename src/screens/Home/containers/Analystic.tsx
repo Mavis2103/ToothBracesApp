@@ -6,14 +6,13 @@ import {SIZE_CIRCULARPROGRESSBAR, SIZE_PROGRESSBAR} from '../constants';
 
 const Analystic = () => {
   return (
-    <View style={styles.center} onLayout={e => console.log('ref', e.nativeEvent.layout.height)}>
+    <View style={styles.center}>
       <CircularProgressBar
         style={{
           height: SIZE_CIRCULARPROGRESSBAR,
           width: SIZE_CIRCULARPROGRESSBAR,
           marginVertical: 20,
         }}
-        onLayout={e => console.log('ref', e.nativeEvent.layout.height)}
         progress={0.2}
         renderIcon={() => (
           <Text style={{textAlign: 'center'}}>
@@ -22,20 +21,14 @@ const Analystic = () => {
           </Text>
         )}
       />
-      <Text
-        style={{marginVertical: 8}}
-        category="label"
-        onLayout={e => console.log('ref', e.nativeEvent.layout.height)}>
+      <Text style={{marginVertical: 8}} category="label">
         8 months 2 days
       </Text>
       <ProgressBar
         style={{width: SIZE_PROGRESSBAR.width, height: SIZE_PROGRESSBAR.height}}
         progress={0.1}
       />
-      <Text
-        style={{marginVertical: 8}}
-        category="c1"
-        onLayout={e => console.log('ref', e.nativeEvent.layout.height)}>
+      <Text style={{marginVertical: 8}} category="c1">
         Finish wearing braces
       </Text>
     </View>

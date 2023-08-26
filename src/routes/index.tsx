@@ -3,6 +3,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import BottomTabsRoute from './index.Bottom';
 import NoBottomTabsRoute, {NoBottomStackParamList} from './index.NoBottom';
 import {NavigationProp, NavigatorScreenParams} from '@react-navigation/native';
+import LoginScreen from '../screens/Login';
+import useAuth from '../hooks/useAuth';
 
 export const RootStack = createNativeStackNavigator();
 
@@ -16,12 +18,20 @@ export type RootStackParamList = {
 export type RootNavigationProps = NavigationProp<RootStackParamList>;
 
 const RootRoute = () => {
+  const {user} = useAuth();
   return (
-    <RootStack.Navigator initialRouteName="BottomTabs" screenOptions={{headerShown: false}}>
-      <RootStack.Screen name="BottomTabs" component={BottomTabsRoute} />
-      <RootStack.Screen name="LoginScreen" component={BottomTabsRoute} />
-      <RootStack.Screen name="RegisterScreen" component={BottomTabsRoute} />
-      <RootStack.Screen name="NoBottomTabs" component={NoBottomTabsRoute} />
+    <RootStack.Navigator screenOptions={{headerShown: false}}>
+      {user ? (
+        <>
+          <RootStack.Screen name="BottomTabs" component={BottomTabsRoute} />
+          <RootStack.Screen name="NoBottomTabs" component={NoBottomTabsRoute} />
+        </>
+      ) : (
+        <>
+          <RootStack.Screen name="LoginScreen" component={LoginScreen} />
+          <RootStack.Screen name="RegisterScreen" component={BottomTabsRoute} />
+        </>
+      )}
     </RootStack.Navigator>
   );
 };
