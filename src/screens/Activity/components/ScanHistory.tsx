@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {Icon, Text} from '@ui-kitten/components';
 import {history} from '../mocks';
@@ -6,6 +6,8 @@ import {COLORS} from '../../../constants/colors';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import ScanHistoryModalEditContainer from '../containers/ScanHistoryModalEdit';
+import {useNavigation} from '@react-navigation/native';
+import {ActivityNavigationProps} from '../../../routes/index.Activity';
 
 type ScanHistoryStatus = 'done' | 'pending' | 'outdated';
 const modifiedStatusCOLORS: Record<string, string> = {
@@ -20,10 +22,14 @@ const modifiedStatusLABEL: Record<string, string> = {
 };
 
 const ScanHistoryComponent = () => {
+  const navigation = useNavigation<ActivityNavigationProps>();
+  const handleItem = () => {
+    navigation.navigate('ActivityScreenDetail');
+  };
   return (
     <View style={{alignSelf: 'stretch', padding: 20}}>
       {history.map((h, h_index) => (
-        <View key={h_index} style={styles.item}>
+        <TouchableOpacity key={h_index} style={styles.item} onPress={handleItem}>
           <View style={styles.item_left}>
             <View
               style={[styles.icon_container, {backgroundColor: modifiedStatusCOLORS[h.status]}]}>
@@ -43,7 +49,7 @@ const ScanHistoryComponent = () => {
           {h.status === 'pending' && (
             <Icon style={styles.item_right} name="edit-outline" fill="#000" />
           )}
-        </View>
+        </TouchableOpacity>
       ))}
       <GestureHandlerRootView style={{flex: 1}}>
         <BottomSheetModalProvider>

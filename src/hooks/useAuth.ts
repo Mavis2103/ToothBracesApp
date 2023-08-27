@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {exist, register} from '../services/auth.service';
 
 const useAuth = () => {
   const [initializing, setInitializing] = useState(true);
@@ -9,6 +10,21 @@ const useAuth = () => {
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(data => {
+      if (data) {
+        exist({email: data?.email!})
+          .then(exist_data => {
+            if (exist_data.empty) {
+              register({email: data?.email!})
+                .then(() => {})
+                .catch(error => {
+                  console.log('register failed', error);
+                });
+            }
+          })
+          .catch(error => {
+            console.log('login failed', error);
+          });
+      }
       setUser(data);
       if (initializing) {
         setInitializing(false);
@@ -32,7 +48,7 @@ const useAuth = () => {
 
   const onLogin = () => {
     onGoogleButtonPress().then(() => {
-      console.log('signed in with google');
+      console.log('sign in with gg');
     });
   };
 

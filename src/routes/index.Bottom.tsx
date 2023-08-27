@@ -5,13 +5,13 @@ import HomeScreen from '../screens/Home';
 import ProfileScreen from '../screens/Profile';
 import NotificationScreen from '../screens/Notification';
 import SettingScreen from '../screens/Setting';
-import ActivityScreen from '../screens/Activity';
+import ActivityRoute from './index.Activity';
 
 const {Navigator, Screen} = createBottomTabNavigator<HomeStackParamList>();
 
 export type HomeStackParamList = {
   ProfileScreen: undefined;
-  ActivityScreen: undefined;
+  ActivityRoute: undefined;
   HomeScreen: undefined;
   NotificationScreen: undefined;
   SettingScreen: undefined;
@@ -24,7 +24,7 @@ const BottomTabsRoute = () => {
       tabBar={props => <BottomTabsContainer {...props} />}
       screenOptions={{headerShown: false}}>
       <Screen name="ProfileScreen" component={ProfileScreen} />
-      <Screen name="ActivityScreen" component={ActivityScreen} />
+      <Screen name="ActivityRoute" component={ActivityRoute} />
       <Screen name="HomeScreen" component={HomeScreen} />
       <Screen name="NotificationScreen" component={NotificationScreen} />
       <Screen name="SettingScreen" component={SettingScreen} />
