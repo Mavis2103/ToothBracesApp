@@ -3,6 +3,7 @@ import auth from '@react-native-firebase/auth';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {exist, register} from '../services/auth.service';
+import {storage} from '../app/storage';
 
 const useAuth = () => {
   const [initializing, setInitializing] = useState(true);
@@ -15,10 +16,30 @@ const useAuth = () => {
           .then(exist_data => {
             if (exist_data.empty) {
               register({email: data?.email!})
-                .then(() => {})
+                .then(register_data => {
+                  storage.set(
+                    'user',
+                    JSON.stringify({
+                      id: register_data.docs[0].id,
+                      data: register_data.docs[0].data,
+                      metadata: register_data.docs[0].metadata,
+                      ref: register_data.docs[0].ref,
+                    }),
+                  );
+                })
                 .catch(error => {
                   console.log('register failed', error);
                 });
+            } else {
+              storage.set(
+                'user',
+                JSON.stringify({
+                  id: exist_data.docs[0].id,
+                  data: exist_data.docs[0].data,
+                  metadata: exist_data.docs[0].metadata,
+                  ref: exist_data.docs[0].ref,
+                }),
+              );
             }
           })
           .catch(error => {
@@ -52,10 +73,9 @@ const useAuth = () => {
     });
   };
 
-  const onLogout = () => {
-    auth()
-      .signOut()
-      .then(() => console.log('User signed out!'));
+  const onLogout = async () => {
+    await auth().signOut();
+    await GoogleSignin.signOut();
   };
 
   return {user, onLogin, onLogout};

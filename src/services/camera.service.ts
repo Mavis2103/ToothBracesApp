@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 
-export const processImage = (body: any) => {
+export const processImage = (body: any): Promise<AxiosResponse<string>> => {
   return axios.post(
-    'https://271b-2402-800-629c-6110-f82e-d5d-7e1c-d1bc.ngrok-free.app/process',
+    'https://baaf-2402-800-629c-6110-2585-e643-94e9-22c7.ngrok-free.app/process',
     body,
     {
       headers: {
