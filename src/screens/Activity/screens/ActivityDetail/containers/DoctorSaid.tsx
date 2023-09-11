@@ -1,9 +1,11 @@
 import {View} from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import {Text} from '@ui-kitten/components';
 import {stylesActivityDetail} from '../index.styles';
+import {ActivityDetailContext} from '..';
 
 const DoctorSaidContainer = () => {
+  const detail = useContext(ActivityDetailContext);
   return (
     <View style={stylesActivityDetail.container}>
       <Text style={stylesActivityDetail.header} category="h6">

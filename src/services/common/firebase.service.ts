@@ -1,4 +1,6 @@
 import storage from '@react-native-firebase/storage';
+import {mmkv} from './mmkv.service';
+import firestore, {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 
 export type File = {
   name: string;
@@ -17,3 +19,9 @@ export const uploadFileWithString = (file: File) => {
     cacheControl: 'no-store',
   });
 };
+
+export const getFile = (name: string) => {
+  return storage().ref(name).getDownloadURL();
+};
+
+const reportsCollection = firestore().collection('Reports');

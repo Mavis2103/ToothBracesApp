@@ -1,5 +1,6 @@
-import firestore from '@react-native-firebase/firestore';
+import firestore, {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 import {storage} from '../app/storage';
+import {mmkv} from './common/mmkv.service';
 
 enum StatusBrace {
   WORKING = 'working',
@@ -28,8 +29,16 @@ type Report = {
 const reportsCollection = firestore().collection('Reports');
 
 export const userAddReport = (body: Report): Promise<any> => {
+  const user = mmkv.getUser();
   return reportsCollection.add({
     ...body,
-    user_id: firestore().doc(`Users/${JSON.parse(storage.getString('user') as string)?.id}`),
+    user_id: firestore().doc(`Users/${user.id}`),
   });
+};
+
+export const getMyReports = (): Promise<
+  FirebaseFirestoreTypes.QuerySnapshot<FirebaseFirestoreTypes.DocumentData>
+> => {
+  const user = mmkv.getUser();
+  return reportsCollection.where('user_id', '==', firestore().doc(`Users/${user.id}`)).get();
 };
